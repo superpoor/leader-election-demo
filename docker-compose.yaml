@@ -1,0 +1,15 @@
+services:
+  zookeeper:
+    image: zookeeper:3.7
+    ports:
+      - "2181:2181"
+
+  app:
+    build: ./app
+    volumes:
+      - ./app:/app
+      - /app/venv
+    environment:
+      - ZK_HOSTS=zookeeper:2181
+    depends_on:
+      - zookeeper
